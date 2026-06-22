@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Учебный материал – Совместимость пары</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            padding: 20px 16px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+            color: #1c1c1e;
+            font-size: 18px;
+            line-height: 1.4;
+        }
+        h1 {
+            font-size: 34px;
+            text-align: center;
+            margin-bottom: 0.2em;
+            color: #1c1c1e;
+        }
+        .sub {
+            text-align: center;
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 1.2em;
+        }
+        .card {
+            background: #faf7f0;
+            border-radius: 16px;
+            padding: 18px 16px;
+            margin-bottom: 20px;
+            border: 1px solid #d9d0c0;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #1c1c1e;
+            font-size: 18px;
+        }
+        input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 18px;
+            background: #ffffff;
+            border: 2px solid #d9d0c0;
+            border-radius: 12px;
+            color: #1c1c1e;
+            -webkit-appearance: none;
+            appearance: none;
+            margin-bottom: 12px;
+        }
+        input:focus { border-color: #b8a88a; outline: none; }
+        button {
+            background: #d9d0c0;
+            border: none;
+            border-radius: 12px;
+            padding: 14px 20px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #1c1c1e;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 8px;
+            transition: 0.15s;
+            -webkit-appearance: none;
+        }
+        button:active { transform: scale(0.97); background: #c8bdaa; }
+        .btn-pdf { background: #2c3e50; color: #fff; }
+        .btn-pdf:active { background: #1a252f; }
+
+        .result { margin-top: 16px; }
+        .result-card {
+            background: #faf7f0;
+            border-radius: 16px;
+            padding: 16px 14px;
+            margin-bottom: 16px;
+            border: 1px solid #d9d0c0;
+            overflow-x: auto;
+        }
+        .result-card h3 {
+            font-size: 26px;
+            margin-bottom: 8px;
+            color: #1c1c1e;
+        }
+        .result-card h4 {
+            font-size: 22px;
+            margin: 12px 0 6px;
+            color: #1c1c1e;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            background: #ffffff;
+            border: 1px solid #d9d0c0;
+            margin: 6px 0;
+        }
+        th, td {
+            border: 1px solid #d9d0c0;
+            padding: 6px 4px;
+            vertical-align: middle;
+            text-align: center;
+        }
+        th {
+            background: #f2e8d8;
+            color: #1c1c1e;
+            font-weight: 600;
+        }
+        .highlight-unsolved { background-color: #fff3cd !important; font-weight: bold; }
+        .karmic-row { background-color: #f8d7da !important; font-weight: bold; }
+        .formula-cell {
+            font-size: 11px;
+            color: #555;
+            text-align: left;
+            padding-left: 8px;
+        }
+        .subtitle {
+            font-size: 0.7rem;
+            font-weight: normal;
+            color: #555;
+            display: block;
+            line-height: 1.2;
+        }
+        .note {
+            font-size: 0.7rem;
+            text-align: center;
+            color: #888;
+            margin-top: 12px;
+        }
+        .copyright {
+            margin-top: 2em;
+            padding-top: 1em;
+            border-top: 2px solid #d9d0c0;
+            font-size: 5px;
+            color: #888;
+        }
+        .copyright a { color: #888; text-decoration: underline; word-break: break-all; }
+        .no-print { display: block; }
+        .print-only { display: none; }
+
+        @media print {
+            body { max-width: 100%; padding: 0.3in; font-size: 14px; }
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            table { font-size: 11px; }
+            th, td { padding: 4px 2px; }
+            .result-card { break-inside: avoid; border: 1px solid #ccc; }
+            .card { break-inside: avoid; }
+            h1 { font-size: 28px; }
+            .sub { font-size: 16px; }
+            .subtitle { font-size: 0.6rem; }
+        }
+        @media (max-width: 550px) {
+            body { padding: 12px 8px 20px; font-size: 16px; }
+            table { font-size: 11px; }
+            th, td { padding: 3px 2px; }
+            .subtitle { font-size: 0.55rem; }
+            .result-card h3 { font-size: 22px; }
+            .result-card h4 { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+<h1>📘 Учебный материал: Совместимость пары</h1>
+<div class="sub">Наглядный расчёт по формулам – от дат рождения до кармических маркеров</div>
+
+<div class="card no-print">
+    <label>👨 Мужчина</label>
+    <input type="date" id="manDate" value="1981-01-24">
+    <label>👩 Женщина</label>
+    <input type="date" id="womanDate" value="1978-10-28">
+    <button id="calcBtn">🔮 ПОКАЗАТЬ РАСЧЁТ</button>
+    <button id="pdfBtn" class="btn-pdf" style="margin-top:8px;">📄 РАСПЕЧАТАТЬ / PDF</button>
+</div>
+
+<div id="results"></div>
+
+<div class="note">Для дней 23–31 используется дополнительный аркан (Да2). Формулы приведены для основного и дополнительного арканов. Эмоции и нерешаемые рассчитываются только для ДА, МА, ГА, СЗ1, СЗ2, ТП1, ТП2 (для ОПВ эмоции не считаются).</div>
+
+<div class="copyright no-print">
+    <p>© Все материалы являются интеллектуальной собственностью курса «Кармическая таронумерология».</p>
+    <p>Копирование, распространение и коммерческое использование без письменного разрешения запрещены.</p>
+    <p>По вопросам использования материалов обращайтесь: <a href="mailto:magnitinka@yandex.ru">magnitinka@yandex.ru</a></p>
+</div>
+
+<script>
+    // ---------- Базовые функции (из оригинального файла) ----------
+    function toArcane(num) {
+        if (num === 0) return 22;
+        let r = num;
+        while (r > 22) r -= 22;
+        while (r < 1) r += 22;
+        return r;
+    }
+    function digitSum(num) {
+        return String(Math.abs(num)).split('').reduce((s, d) => s + parseInt(d, 10), 0);
+    }
+    function getDoubleDA(day) {
+        const map = {
+            23: { main: 5, additional: 1 },
+            24: { main: 6, additional: 2 },
+            25: { main: 7, additional: 3 },
+            26: { main: 8, additional: 4 },
+            27: { main: 9, additional: 5 },
+            28: { main: 1, additional: 6 },
+            29: { main: 2, additional: 7 },
+            30: { main: 3, additional: 8 },
+            31: { main: 4, additional: 9 }
+        };
+        return map[day] || null;
+    }
+
+    function calcPerson(birthDate) {
+        const [year, month, day] = birthDate.split('-').map(Number);
+        if (isNaN(year) || isNaN(month) || isNaN(day)) return null;
+        const doubleDA = getDoubleDA(day);
+        const mainNumber = doubleDA ? doubleDA.main : toArcane(day);
+        const additionalNumber = doubleDA ? doubleDA.additional : null;
+        const ma = toArcane(month);
+        const ga = toArcane(digitSum(year));
+
+        function compute(daVal) {
+            const cz = toArcane(daVal + ma + ga);
+            const opv = toArcane(Math.abs(daVal - ma));
+            const tp = toArcane(daVal + ma);
+            const kb = toArcane(Math.abs(ma - ga));
+            const ku1 = toArcane(cz + opv);
+            const ku2 = toArcane(daVal + opv);
+            const ku3 = toArcane(Math.abs(daVal - ga));
+            const ku4 = toArcane(ga + cz);
+            return { cz, opv, tp, kb, ku1, ku2, ku3, ku4 };
+        }
+
+        const mainCalc = compute(mainNumber);
+        const secondaryCalc = additionalNumber ? compute(additionalNumber) : null;
+        const kbCommon = toArcane(Math.abs(ma - ga));
+        return {
+            mainNumber,
+            additionalNumber,
+            ma,
+            ga,
+            main: mainCalc,
+            secondary: secondaryCalc,
+            kbCommon,
+            day, month, year
+        };
+    }
+
+    const arcaneNames = {
+        1:"Маг",2:"Верховная Жрица",3:"Императрица",4:"Император",
+        5:"Иерофант",6:"Влюблённые",7:"Колесница",8:"Правосудие",
+        9:"Отшельник",10:"Колесо Фортуны",11:"Сила",12:"Повешенный",
+        13:"Смерть",14:"Умеренность",15:"Дьявол",16:"Башня",
+        17:"Звезда",18:"Луна",19:"Солнце",20:"Страшный Суд",
+        21:"Мир",22:"Шут"
+    };
+    function nameA(a) { return arcaneNames[a] || a; }
+
+    function calcCompatibility(man, woman) {
+        const mMain = man.mainNumber, wMain = woman.mainNumber;
+        const mAdd = man.additionalNumber, wAdd = woman.additionalNumber;
+        const mMa = man.ma, wMa = woman.ma;
+        const mGa = man.ga, wGa = woman.ga;
+
+        // Общие арканы
+        const da3 = toArcane(mMain + wMain);
+        let da3_2 = null;
+        if (mAdd !== null && wAdd !== null) da3_2 = toArcane(mAdd + wAdd);
+        const ma3 = toArcane(mMa + wMa);
+        const ga3 = toArcane(mGa + wGa);
+
+        // СЗ общие
+        const cz1M = man.main.cz;
+        const cz1W = woman.main.cz;
+        const cz2M = man.secondary?.cz ?? null;
+        const cz2W = woman.secondary?.cz ?? null;
+        const czCommon1 = toArcane(cz1M + cz1W);
+        let czCommon2 = null;
+        if (cz2M !== null && cz2W !== null) czCommon2 = toArcane(cz2M + cz2W);
+
+        // ОПВ общие
+        const opv1M = man.main.opv;
+        const opv1W = woman.main.opv;
+        const opv2M = man.secondary?.opv ?? null;
+        const opv2W = woman.secondary?.opv ?? null;
+        const opv3M = man.kbCommon;
+        const opv3W = woman.kbCommon;
+        const opvCommon1 = toArcane(opv1M + opv1W);
+        const opvCommon2 = (opv2M !== null && opv2W !== null) ? toArcane(opv2M + opv2W) : null;
+        const opvCommon3 = toArcane(opv3M + opv3W);
+
+        // ТП общие
+        const tp1M = man.main.tp;
+        const tp1W = woman.main.tp;
+        const tp2M = man.secondary?.tp ?? null;
+        const tp2W = woman.secondary?.tp ?? null;
+        const tpCommon1 = toArcane(tp1M + tp1W);
+        const tpCommon2 = (tp2M !== null && tp2W !== null) ? toArcane(tp2M + tp2W) : null;
+
+        // Эмоции – только для ДА, МА, ГА, СЗ1, СЗ2, ТП1, ТП2
+        function emotion(partnerVal, commonVal) { return toArcane(partnerVal + commonVal); }
+        function unsolved(e1, e2) { return toArcane(Math.abs(e1 - e2)); }
+
+        const emManDa = emotion(mMain, da3);
+        const emWomanDa = emotion(wMain, da3);
+        const unsolvedDa = unsolved(emManDa, emWomanDa);
+        let emManDa2 = null, emWomanDa2 = null, unsolvedDa2 = null;
+        if (mAdd !== null && wAdd !== null && da3_2 !== null) {
+            emManDa2 = emotion(mAdd, da3_2);
+            emWomanDa2 = emotion(wAdd, da3_2);
+            unsolvedDa2 = unsolved(emManDa2, emWomanDa2);
+        }
+
+        const emManMa = emotion(mMa, ma3);
+        const emWomanMa = emotion(wMa, ma3);
+        const unsolvedMa = unsolved(emManMa, emWomanMa);
+
+        const emManGa = emotion(mGa, ga3);
+        const emWomanGa = emotion(wGa, ga3);
+        const unsolvedGa = unsolved(emManGa, emWomanGa);
+
+        const emManCz1 = emotion(cz1M, czCommon1);
+        const emWomanCz1 = emotion(cz1W, czCommon1);
+        const unsolvedCz1 = unsolved(emManCz1, emWomanCz1);
+
+        let emManCz2 = null, emWomanCz2 = null, unsolvedCz2 = null;
+        if (cz2M !== null && cz2W !== null && czCommon2 !== null) {
+            emManCz2 = emotion(cz2M, czCommon2);
+            emWomanCz2 = emotion(cz2W, czCommon2);
+            unsolvedCz2 = unsolved(emManCz2, emWomanCz2);
+        }
+
+        const emManTp1 = emotion(tp1M, tpCommon1);
+        const emWomanTp1 = emotion(tp1W, tpCommon1);
+        const unsolvedTp1 = unsolved(emManTp1, emWomanTp1);
+
+        let emManTp2 = null, emWomanTp2 = null, unsolvedTp2 = null;
+        if (tp2M !== null && tp2W !== null && tpCommon2 !== null) {
+            emManTp2 = emotion(tp2M, tpCommon2);
+            emWomanTp2 = emotion(tp2W, tpCommon2);
+            unsolvedTp2 = unsolved(emManTp2, emWomanTp2);
+        }
+
+        return {
+            man, woman,
+            da3, da3_2, ma3, ga3,
+            czCommon1, czCommon2,
+            opvCommon1, opvCommon2, opvCommon3,
+            tpCommon1, tpCommon2,
+            emManDa, emWomanDa, unsolvedDa,
+            emManDa2, emWomanDa2, unsolvedDa2,
+            emManMa, emWomanMa, unsolvedMa,
+            emManGa, emWomanGa, unsolvedGa,
+            emManCz1, emWomanCz1, unsolvedCz1,
+            emManCz2, emWomanCz2, unsolvedCz2,
+            emManTp1, emWomanTp1, unsolvedTp1,
+            emManTp2, emWomanTp2, unsolvedTp2
+        };
+    }
+
+    function getKarmicMarkers(compat) {
+        const markers = [];
+        const man = compat.man, woman = compat.woman;
+        const cz3 = compat.czCommon1;
+        const da3 = compat.da3;
+        const ma3 = compat.ma3;
+        const opvM = [man.main.opv, man.secondary?.opv ?? null, man.kbCommon].filter(x => x !== null);
+        const opvW = [woman.main.opv, woman.secondary?.opv ?? null, woman.kbCommon].filter(x => x !== null);
+        const ku3m = man.main.ku3;
+        const ku3w = woman.main.ku3;
+        const kbM = man.kbCommon;
+        const kbW = woman.kbCommon;
+        if (opvM.includes(cz3) || opvW.includes(cz3)) markers.push('⚡ ОПВ совпадает с общей СЗ – кармично для обоих');
+        if (ku3m === da3 || ku3w === da3) markers.push('🏛️ КУ3 совпал с Да3 – кармично');
+        if (ku3m === ma3 || ku3w === ma3) markers.push('🏛️ КУ3 совпал с Ма3 – кармично');
+        if (kbM === cz3 || kbW === cz3) markers.push('💊 КБ совпадает с общей СЗ – кармическая болезнь');
+        return markers;
+    }
+
+    // ---------- Функции отображения с формулами ----------
+    function personTable(person, gender, label) {
+        let rows = [];
+        const main = person.main;
+        const sec = person.secondary;
+        const mainDa = person.mainNumber;
+        const addDa = person.additionalNumber;
+        const ma = person.ma;
+        const ga = person.ga;
+
+        const data = [
+            { key: 'ДА', mainVal: mainDa, addVal: addDa, mainFormula: `ДА = день ${person.day} → ${mainDa}`, addFormula: addDa !== null ? `Да2 = доп. аркан для ${person.day} → ${addDa}` : '' },
+            { key: 'МА', mainVal: ma, addVal: null, mainFormula: `МА = месяц ${person.month} → ${ma}`, addFormula: '' },
+            { key: 'ГА', mainVal: ga, addVal: null, mainFormula: `ГА = сумма цифр года (${digitSum(person.year)}) → ${ga}`, addFormula: '' },
+            { key: 'СЗ', mainVal: main.cz, addVal: sec?.cz ?? null, mainFormula: `СЗ = ${mainDa} + ${ma} + ${ga} = ${mainDa+ma+ga} → ${main.cz}`, addFormula: sec ? `СЗ = ${addDa} + ${ma} + ${ga} = ${addDa+ma+ga} → ${sec.cz}` : '' },
+            { key: 'ОПВ1', mainVal: main.opv, addVal: sec?.opv ?? null, mainFormula: `ОПВ1 = |${mainDa} - ${ma}| = ${Math.abs(mainDa-ma)} → ${main.opv}`, addFormula: sec ? `ОПВ1 = |${addDa} - ${ma}| = ${Math.abs(addDa-ma)} → ${sec.opv}` : '' },
+            { key: 'ТП', mainVal: main.tp, addVal: sec?.tp ?? null, mainFormula: `ТП = ${mainDa} + ${ma} = ${mainDa+ma} → ${main.tp}`, addFormula: sec ? `ТП = ${addDa} + ${ma} = ${addDa+ma} → ${sec.tp}` : '' },
+            { key: 'КБ(ОПВ3)', mainVal: person.kbCommon, addVal: null, mainFormula: `КБ = |${ma} - ${ga}| = ${Math.abs(ma-ga)} → ${person.kbCommon}`, addFormula: '' },
+            { key: 'КУ1', mainVal: main.ku1, addVal: sec?.ku1 ?? null, mainFormula: `КУ1 = ${main.cz} + ${main.opv} = ${main.cz+main.opv} → ${main.ku1}`, addFormula: sec ? `КУ1 = ${sec.cz} + ${sec.opv} = ${sec.cz+sec.opv} → ${sec.ku1}` : '' },
+            { key: 'КУ2', mainVal: main.ku2, addVal: sec?.ku2 ?? null, mainFormula: `КУ2 = ${mainDa} + ${main.opv} = ${mainDa+main.opv} → ${main.ku2}`, addFormula: sec ? `КУ2 = ${addDa} + ${sec.opv} = ${addDa+sec.opv} → ${sec.ku2}` : '' },
+            { key: 'КУ3', mainVal: main.ku3, addVal: sec?.ku3 ?? null, mainFormula: `КУ3 = |${mainDa} - ${ga}| = ${Math.abs(mainDa-ga)} → ${main.ku3}`, addFormula: sec ? `КУ3 = |${addDa} - ${ga}| = ${Math.abs(addDa-ga)} → ${sec.ku3}` : '' },
+            { key: 'КУ4', mainVal: main.ku4, addVal: sec?.ku4 ?? null, mainFormula: `КУ4 = ${ga} + ${main.cz} = ${ga+main.cz} → ${main.ku4}`, addFormula: sec ? `КУ4 = ${ga} + ${sec.cz} = ${ga+sec.cz} → ${sec.ku4}` : '' }
+        ];
+
+        data.forEach(item => {
+            let mainStr = (item.mainVal !== null && item.mainVal !== undefined) ? item.mainVal + ' (' + nameA(item.mainVal) + ')' : '—';
+            let addStr = (item.addVal !== null && item.addVal !== undefined) ? item.addVal + ' (' + nameA(item.addVal) + ')' : '—';
+            rows.push(`
+                <tr>
+                    <td style="font-weight:600; text-align:left; padding-left:6px;">${item.key}</td>
+                    <td>${mainStr}</td>
+                    <td>${addStr}</td>
+                    <td style="font-size:11px; color:#555; text-align:left; padding-left:8px;">${item.mainFormula}</td>
+                    ${item.addFormula ? `<td style="font-size:11px; color:#555; text-align:left; padding-left:8px;">${item.addFormula}</td>` : '<td>—</td>'}
+                </tr>
+            `);
+        });
+
+        return `
+            <h4>${label}</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Показатель</th>
+                        <th>Основной</th>
+                        <th>Да2 (если есть)</th>
+                        <th>Формула (осн.)</th>
+                        <th>Формула (доп.)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${rows.join('')}
+                </tbody>
+            </table>
+        `;
+    }
+
+    function render() {
+        const manDate = document.getElementById('manDate').value;
+        const womanDate = document.getElementById('womanDate').value;
+        const resultDiv = document.getElementById('results');
+        if (!manDate || !womanDate) {
+            resultDiv.innerHTML = '<div class="result-card" style="color:#c0392b;">⚠️ Выберите даты рождения.</div>';
+            return;
+        }
+        const man = calcPerson(manDate);
+        const woman = calcPerson(womanDate);
+        if (!man || !woman) {
+            resultDiv.innerHTML = '<div class="result-card" style="color:#c0392b;">❌ Ошибка в датах.</div>';
+            return;
+        }
+        const compat = calcCompatibility(man, woman);
+        const markers = getKarmicMarkers(compat);
+
+        // --- Построение HTML ---
+        let html = '';
+
+        // Индивидуальные таблицы
+        html += `<div class="result-card">${personTable(man, 'Мужчина', '👨 Мужчина')}</div>`;
+        html += `<div class="result-card">${personTable(woman, 'Женщина', '👩 Женщина')}</div>`;
+
+        // --- Общие арканы ---
+        let commonRows = [
+            { key: 'Да3 (знакомство)', mainVal: compat.da3, addVal: compat.da3_2, mainFormula: `Да3 = ${man.mainNumber} + ${woman.mainNumber} = ${man.mainNumber+woman.mainNumber} → ${compat.da3}`, addFormula: compat.da3_2 !== null ? `Да3_2 = ${man.additionalNumber} + ${woman.additionalNumber} = ${man.additionalNumber+woman.additionalNumber} → ${compat.da3_2}` : '' },
+            { key: 'Ма3 (проживание)', mainVal: compat.ma3, addVal: null, mainFormula: `Ма3 = ${man.ma} + ${woman.ma} = ${man.ma+woman.ma} → ${compat.ma3}`, addFormula: '' },
+            { key: 'Га3 (разрыв)', mainVal: compat.ga3, addVal: null, mainFormula: `Га3 = ${man.ga} + ${woman.ga} = ${man.ga+woman.ga} → ${compat.ga3}`, addFormula: '' }
+        ];
+        let commonHtml = `
+            <h3>🏛️ Общие арканы (крыши)</h3>
+            <table>
+                <thead>
+                    <tr><th>Показатель</th><th>Основной</th><th>Доп. (Да2)</th><th>Формула (осн.)</th><th>Формула (доп.)</th></tr>
+                </thead>
+                <tbody>
+                    ${commonRows.map(r => `
+                        <tr>
+                            <td style="font-weight:600; text-align:left; padding-left:6px;">${r.key}</td>
+                            <td>${r.mainVal !== null ? r.mainVal + ' (' + nameA(r.mainVal) + ')' : '—'}</td>
+                            <td>${r.addVal !== null ? r.addVal + ' (' + nameA(r.addVal) + ')' : '—'}</td>
+                            <td style="font-size:11px; color:#555; text-align:left; padding-left:8px;">${r.mainFormula}</td>
+                            <td style="font-size:11px; color:#555; text-align:left; padding-left:8px;">${r.addFormula || '—'}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        `;
+
+        // --- Эмоции и нерешаемые (только ДА, МА, ГА, СЗ1, СЗ2, ТП1, ТП2) ---
+        function emotionRow(stage, emMan, emWoman, unsolved, emMan2, emWoman2, unsolved2) {
+            let rows = `
+                <tr>
+                    <td style="font-weight:600; text-align:left; padding-left:6px;">${stage}</td>
+                    <td>${emMan !== null ? emMan + ' (' + nameA(emMan) + ')' : '—'}</td>
+                    <td>${emWoman !== null ? emWoman + ' (' + nameA(emWoman) + ')' : '—'}</td>
+                    <td class="highlight-unsolved">${unsolved !== null ? unsolved + ' (' + nameA(unsolved) + ')' : '—'}</td>
+                </tr>
+            `;
+            if (emMan2 !== null && emWoman2 !== null) {
+                rows += `
+                <tr>
+                    <td style="font-weight:600; font-size:0.8rem; text-align:left; padding-left:6px;">${stage} (по Да2)</td>
+                    <td>${emMan2 + ' (' + nameA(emMan2) + ')'}</td>
+                    <td>${emWoman2 + ' (' + nameA(emWoman2) + ')'}</td>
+                    <td class="highlight-unsolved">${unsolved2 !== null ? unsolved2 + ' (' + nameA(unsolved2) + ')' : '—'}</td>
+                </tr>`;
+            }
+            return rows;
+        }
+
+        // Собираем только нужные этапы
+        let emotionData = [
+            { stage: 'Встреча (Да+Да3)', emMan: compat.emManDa, emWoman: compat.emWomanDa, unsolved: compat.unsolvedDa, emMan2: compat.emManDa2, emWoman2: compat.emWomanDa2, unsolved2: compat.unsolvedDa2 },
+            { stage: 'Проживание (Ма+Ма3)', emMan: compat.emManMa, emWoman: compat.emWomanMa, unsolved: compat.unsolvedMa, emMan2: null, emWoman2: null, unsolved2: null },
+            { stage: 'Разрыв (Га+Га3)', emMan: compat.emManGa, emWoman: compat.emWomanGa, unsolved: compat.unsolvedGa, emMan2: null, emWoman2: null, unsolved2: null },
+            { stage: 'СЗ1 (СЗ1+СЗ3)', emMan: compat.emManCz1, emWoman: compat.emWomanCz1, unsolved: compat.unsolvedCz1, emMan2: null, emWoman2: null, unsolved2: null },
+            { stage: 'СЗ2 (СЗ2+СЗ3)', emMan: compat.emManCz2, emWoman: compat.emWomanCz2, unsolved: compat.unsolvedCz2, emMan2: null, emWoman2: null, unsolved2: null },
+            { stage: 'ТП1 (ТП1+ТП1_общ)', emMan: compat.emManTp1, emWoman: compat.emWomanTp1, unsolved: compat.unsolvedTp1, emMan2: null, emWoman2: null, unsolved2: null },
+            { stage: 'ТП2 (ТП2+ТП2_общ)', emMan: compat.emManTp2, emWoman: compat.emWomanTp2, unsolved: compat.unsolvedTp2, emMan2: null, emWoman2: null, unsolved2: null }
+        ];
+
+        let emotionRowsHtml = '';
+        emotionData.forEach(d => {
+            if (d.emMan !== null || d.emWoman !== null || d.unsolved !== null) {
+                emotionRowsHtml += emotionRow(d.stage, d.emMan, d.emWoman, d.unsolved, d.emMan2, d.emWoman2, d.unsolved2);
+            }
+        });
+
+        let emotionHtml = `
+            <h3>💞 Эмоции и нерешаемые конфликты</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Этап</th>
+                        <th>Эмоция мужчины <span class="subtitle">(что должна дать женщина)</span></th>
+                        <th>Эмоция женщины <span class="subtitle">(что должен дать мужчина)</span></th>
+                        <th>Нерешаемое</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${emotionRowsHtml}
+                </tbody>
+            </table>
+        `;
+
+        // --- Кармические маркеры ---
+        let markersHtml = '';
+        if (markers.length) {
+            markersHtml = `<div class="markers-block" style="background:#f2e8d8; padding:8px 12px; border-radius:8px; margin-top:10px;"><strong>🌀 Кармические маркеры:</strong><ul style="margin:4px 0 0 16px;">${markers.map(m => `<li>${m}</li>`).join('')}</ul></div>`;
+        } else {
+            markersHtml = `<div class="markers-block" style="background:#f2e8d8; padding:8px 12px; border-radius:8px; margin-top:10px;">🌀 Кармические маркеры не обнаружены.</div>`;
+        }
+
+        html += `<div class="result-card">${commonHtml}</div>`;
+        html += `<div class="result-card">${emotionHtml}</div>`;
+        html += `<div class="result-card">${markersHtml}</div>`;
+
+        // Добавим пояснения по формулам
+        let formulasExplain = `
+            <div class="result-card">
+                <h3>📐 Как читать формулы</h3>
+                <ul style="font-size:16px; line-height:1.6; margin-left:20px;">
+                    <li><strong>ДА</strong> – день рождения приводится к аркану (1–22). Для чисел 23–31 используется дополнительный ДА (Да2) по таблице.</li>
+                    <li><strong>МА</strong> – месяц рождения (номер месяца, 1–12) сразу является арканом.</li>
+                    <li><strong>ГА</strong> – сумма цифр года приводится к аркану.</li>
+                    <li><strong>СЗ</strong> = ДА + МА + ГА (приводится к аркану).</li>
+                    <li><strong>ОПВ1</strong> = |ДА – МА| (приводится к аркану).</li>
+                    <li><strong>ТП</strong> = ДА + МА (приводится к аркану).</li>
+                    <li><strong>КБ(ОПВ3)</strong> = |МА – ГА| (приводится к аркану).</li>
+                    <li><strong>КУ1</strong> = СЗ + ОПВ1 (приводится к аркану).</li>
+                    <li><strong>КУ2</strong> = ДА + ОПВ1 (приводится к аркану).</li>
+                    <li><strong>КУ3</strong> = |ДА – ГА| (приводится к аркану).</li>
+                    <li><strong>КУ4</strong> = ГА + СЗ (приводится к аркану).</li>
+                    <li><strong>Общие арканы</strong> (крыши) – сумма соответствующих арканов мужчины и женщины (приводится к аркану).</li>
+                    <li><strong>Эмоции</strong> = аркан партнёра + общий аркан этапа (приводится к аркану). <strong>Эмоции рассчитываются только для ДА, МА, ГА, СЗ1, СЗ2, ТП1, ТП2.</strong> Для ОПВ эмоции не считаются.</li>
+                    <li><strong>Нерешаемое</strong> = |эмоция мужчины – эмоция женщины| (приводится к аркану).</li>
+                </ul>
+                <p style="margin-top:8px; font-size:15px; color:#555;">В таблицах формулы показывают промежуточные вычисления – так легче понять логику.</p>
+            </div>
+        `;
+        html += formulasExplain;
+
+        resultDiv.innerHTML = html;
+    }
+
+    document.getElementById('calcBtn').addEventListener('click', render);
+    document.getElementById('pdfBtn').addEventListener('click', () => window.print());
+    window.addEventListener('DOMContentLoaded', render);
+</script>
+</body>
+</html>
